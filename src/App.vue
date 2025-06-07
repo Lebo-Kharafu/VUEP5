@@ -1,9 +1,12 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import Navigator from './components/Navigator.vue';
+
 </script>
 
 <template>
   <HelloWorld msg="Vite + Vue + P5.js" />
+  <Navigator currentSketch="One"/>
 </template>
 
 <style scoped>
