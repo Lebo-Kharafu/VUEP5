@@ -1,12 +1,13 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue';
 import Navigator from './components/Navigator.vue';
-
+import  BouncingBall  from "./views/BouncingBall.vue";
 </script>
 
 <template>
-  <HelloWorld msg="Vite + Vue + P5.js" />
+  <h1>Welcome to the Sketches Gallery: Vite + Vue + P5.js</h1>
+  <BouncingBall />
   <Navigator currentSketch="One"/>
+  
 </template>
 
 <style scoped>
