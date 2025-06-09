@@ -118,7 +118,6 @@ onMounted(() => {
           ballY = baseY - (ballSize / 2);
           speedY = -Math.abs(speedY);
           score = 0;
-          disScore = `Bounces caught: ${score}`;
         }
       }
 
