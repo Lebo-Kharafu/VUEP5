@@ -1,12 +1,16 @@
 <script setup>
 import Navigator from './components/Navigator.vue';
 import  BouncingBall  from "./views/BouncingBall.vue";
+import  CatchTheBall  from "./views/CatchTheBall.vue";
 </script>
 
 <template>
   <h1>Welcome to the Sketches Gallery: Vite + Vue + P5.js</h1>
-  <BouncingBall />
-  <Navigator currentSketch="One"/>
+  <CatchTheBall 
+    wWIDTH="600"
+    wHEIGHT="400"
+  />
+  <!-- <Navigator currentSketch="One"/> -->
   
 </template>
 
