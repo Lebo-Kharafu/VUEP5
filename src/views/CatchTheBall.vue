@@ -101,17 +101,7 @@ onMounted(() => {
           score++;
           disScore = `Bounces caught: ${score}`;
         }
-        else if ( (baseX > (ballX + ballRad))) {
-          pausedLoop = true;
-          baseX = (props.wWIDTH / 2) - (baseLength / 2);
-          ballX = props.wWIDTH / 2;
-          ballY = baseY - (ballSize / 2);
-          speedY = -Math.abs(speedY);
-          prevScore = score;
-          disScore = `Bounces caught: ${score}`;
-          score = 0;
-        }
-        else if (((baseX + baseLength) < (ballX - ballRad)) ) {
+        else {
           pausedLoop = true;
           baseX = (props.wWIDTH / 2) - (baseLength / 2);
           ballX = props.wWIDTH / 2;
