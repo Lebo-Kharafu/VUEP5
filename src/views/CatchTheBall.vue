@@ -29,7 +29,6 @@ onMounted(() => {
     let pausedLoop = true;
     let score = 0;
     let prevScore = 0;
-    //let disScore = "Bounces caught "+score;
     let disScore = `Bounces caught: ${score}`;
 
 
@@ -45,12 +44,6 @@ onMounted(() => {
 
 
     sketch.keyPressed = (event) => {
-      /*if (sketch.key === sketch.LEFT_ARROW) {
-        if(baseX > 0){baseX -= 10;}
-      }
-      else if (sketch.key === sketch.RIGHT_ARROW) {
-        if((baseX + baseLength) < 400){baseX += 10;}
-      }*/
       if (sketch.keyCode === 32) {
         if (pausedLoop) {
           pausedLoop = false;
