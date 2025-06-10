@@ -28,6 +28,7 @@ onMounted(() => {
 
     let pausedLoop = true;
     let score = 0;
+    let prevScore = 0;
     //let disScore = "Bounces caught "+score;
     let disScore = `Bounces caught: ${score}`;
 
@@ -94,29 +95,30 @@ onMounted(() => {
 
       if ((ballY + ballSize / 2) >= baseY) {
 
-        /*if (((baseX + baseLength) - (ballX + ballSize / 2) <= 0) || (baseX - (ballX + ballSize / 2) <= 0) ) {
-          speedY = -speedY;
-        }*/
         let ballRad = ballSize / 2;
-        if ((baseX > (ballX + ballRad))) {
+        if ((baseX < (ballX + ballRad)) && ((baseX + baseLength) > (ballX - ballRad))) {
           speedY = -speedY;
           score++;
           disScore = `Bounces caught: ${score}`;
-
         }
-        if (((baseX + baseLength) > (ballX - ballRad))) {
-          speedY = -speedY;
-          score++;
-          disScore = `Bounces caught: ${score}`;
-
-        }
-
-        if ((ballY + ballSize / 2) > baseY) {
+        else if ( (baseX > (ballX + ballRad))) {
           pausedLoop = true;
           baseX = (props.wWIDTH / 2) - (baseLength / 2);
           ballX = props.wWIDTH / 2;
           ballY = baseY - (ballSize / 2);
           speedY = -Math.abs(speedY);
+          prevScore = score;
+          disScore = `Bounces caught: ${score}`;
+          score = 0;
+        }
+        else if (((baseX + baseLength) < (ballX - ballRad)) ) {
+          pausedLoop = true;
+          baseX = (props.wWIDTH / 2) - (baseLength / 2);
+          ballX = props.wWIDTH / 2;
+          ballY = baseY - (ballSize / 2);
+          speedY = -Math.abs(speedY);
+          prevScore = score;
+          disScore = `Bounces caught: ${score}`;
           score = 0;
         }
       }
