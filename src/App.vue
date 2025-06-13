@@ -24,7 +24,7 @@
         <BouncingBall  v-else-if="gameTitle === 'Bounce-Ball'" wWIDTH="600" wHEIGHT="400" />
       </section>
       <section id="controls">
-        <p>game-CONTROLS</p>
+        <!-- <p>game-CONTROLS</p> -->
       </section>
     </main>
     <footer id="footer">
@@ -57,7 +57,9 @@
 }
 
 #menu {
-  background-color: black;
+  /* background-color: black; */
+    background-color: darkslategray;
+
   grid-area: menu;
   max-width: 300px;
   max-height: 515px;
