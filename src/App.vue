@@ -26,7 +26,7 @@ let gameTitle = 'Catch-Ball';
       </section>
     </main>
     <footer id="footer">
-      <p>rand-FOOTER STUFF</p>
+      <p>Since 2025</p>
     </footer>
   </section>
 </template>
@@ -46,7 +46,7 @@ let gameTitle = 'Catch-Ball';
 #main-grid {
   background-color: blueviolet;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
   grid-template-areas: 
     'menu game-viewer'
@@ -57,7 +57,9 @@ let gameTitle = 'Catch-Ball';
 #menu {
   background-color: black;
   grid-area: menu;
-  max-width: 250px;
+  max-width: 300px;
+  max-height: 515px;
+  overflow-y: auto;
 }
 
 #game-viewer {
