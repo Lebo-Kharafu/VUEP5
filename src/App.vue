@@ -1,5 +1,6 @@
 <script setup>
 import Navigator from './components/Navigator.vue';
+import gameCard from './components/gameCard.vue';
 import BouncingBall from "./views/BouncingBall.vue";
 import CatchTheBall from "./views/CatchTheBall.vue";
 
@@ -13,7 +14,8 @@ let gameTitle = 'Catch-Ball';
     </header>
     <main id="main-grid">
       <aside id="menu">
-
+        <gameCard title="Bouncing ball" description="This is a simple Bouncing ball"  onclick="alert(`Hello bouncing ball`)"/>
+        <gameCard title="Catch The Ball" description="This is a simple Catching The Ball game" onclick="alert(`Hello catch the ball`)" />
       </aside>
       <section id="game-viewer">
         <h3>Now Playing {{ gameTitle }}</h3>
