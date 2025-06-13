@@ -7,43 +7,42 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
-    import defaultImage from "../assets/cd.svg";
-    const props = defineProps(['title','description','cover-img']);
-    const gameCover =  props['cover-img'] || defaultImage;
-     const altStr =  `This the game cover of  ${props.title}`;
-     console.log(gameCover);
+import defaultImage from "../assets/cd.svg";
+const props = defineProps(['title', 'description', 'cover-img']);
+const gameCover = props['cover-img'] || defaultImage;
+const altStr = `This the game cover of  ${props.title}`;
+console.log(gameCover);
 </script>
 
 <style scoped>
-    #game-card{
-        padding: 0;
-        margin: 0;
-        display: grid;
-        background-color: crimson;
-        grid-template-columns: 1fr 2fr;
-        grid-template-areas: "game-image game-title";
+#game-card {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    /* background-color: crimson; */
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: "game-image game-title"
+        /* "game-image game-desc"*/
+    ;
 
-        border-color: coral;
-        border-style: dotted;
-      
-    }
-    
-    #game-title{
-        grid-area: game-title;
-        align-content: center;
-    }
+    /* border-color: coral; */
+    border-style: groove;
 
-    #game-image{
-        grid-area: game-image;
-        width: 100%;
-        height: 100%;
-    }
+}
 
-    #game-desc{
-        grid-area: game-desc;
+#game-title {
+    grid-area: game-title;
+    align-content: center;
+}
 
-    }
+#game-image {
+    grid-area: game-image;
+    width: 100%;
+    height: 100%;
+}
 
+#game-desc {
+    grid-area: game-desc;
 
+}
 </style>

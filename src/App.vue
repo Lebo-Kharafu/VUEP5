@@ -1,10 +1,11 @@
 <script setup>
-import Navigator from './components/Navigator.vue';
-import gameCard from './components/gameCard.vue';
-import BouncingBall from "./views/BouncingBall.vue";
-import CatchTheBall from "./views/CatchTheBall.vue";
+  import { ref } from 'vue';
+  import Navigator from './components/Navigator.vue';
+  import gameCard from './components/gameCard.vue';
+  import BouncingBall from "./views/BouncingBall.vue";
+  import CatchTheBall from "./views/CatchTheBall.vue";
 
-let gameTitle = 'Catch-Ball';
+  let gameTitle = ref('Catch-Ball');
 </script>
 
 <template>
@@ -14,12 +15,13 @@ let gameTitle = 'Catch-Ball';
     </header>
     <main id="main-grid">
       <aside id="menu">
-        <gameCard title="Bouncing ball" description="This is a simple Bouncing ball"  onclick="alert(`Hello bouncing ball`)"/>
-        <gameCard title="Catch The Ball" description="This is a simple Catching The Ball game" onclick="alert(`Hello catch the ball`)" />
+        <gameCard title="Bouncing ball" description="This is a simple Bouncing ball"  @click="gameTitle = 'Bounce-Ball'"/>
+        <gameCard title="Catch The Ball" description="This is a simple Catching The Ball game" @click="gameTitle = 'Catch-Ball'" />
       </aside>
       <section id="game-viewer">
         <h3>Now Playing {{ gameTitle }}</h3>
-        <CatchTheBall wWIDTH="600" wHEIGHT="400" />
+        <CatchTheBall  v-if="gameTitle === 'Catch-Ball'" wWIDTH="600" wHEIGHT="400" />
+        <BouncingBall  v-else-if="gameTitle === 'Bounce-Ball'" wWIDTH="600" wHEIGHT="400" />
       </section>
       <section id="controls">
         <p>game-CONTROLS</p>
@@ -44,7 +46,7 @@ let gameTitle = 'Catch-Ball';
 }
 
 #main-grid {
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
@@ -63,18 +65,18 @@ let gameTitle = 'Catch-Ball';
 }
 
 #game-viewer {
-  background-color: chocolate;
+  /* background-color: chocolate; */
   grid-area: game-viewer;
 
 }
 
 #controls {
-  background-color: chartreuse;
+  background-color: darkslategray;
   grid-area: controls;
 
 }
 
 #footer {
-  background-color: firebrick;
+  /* background-color: firebrick; */
 }
 </style>
