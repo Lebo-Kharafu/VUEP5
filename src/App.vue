@@ -1,11 +1,11 @@
 <script setup>
   import { ref } from 'vue';
-  import Navigator from './components/Navigator.vue';
   import gameCard from './components/gameCard.vue';
   import BouncingBall from "./views/BouncingBall.vue";
   import CatchTheBall from "./views/CatchTheBall.vue";
+  import Snake from "./views/snake.vue";
 
-  let gameTitle = ref('Catch-Ball');
+  let gameTitle = ref('Snake');
 </script>
 
 <template>
@@ -16,15 +16,17 @@
     <main id="main-grid">
       <aside id="menu">
         <gameCard title="Bouncing ball" description="This is a simple Bouncing ball"  @click="gameTitle = 'Bounce-Ball'"/>
+        <gameCard title="Snake" description="This is a simple snake game"  @click="gameTitle = 'Snake'"/>
         <gameCard title="Catch The Ball" description="This is a simple Catching The Ball game" @click="gameTitle = 'Catch-Ball'" />
       </aside>
       <section id="game-viewer">
         <h3>Now Playing {{ gameTitle }}</h3>
         <CatchTheBall  v-if="gameTitle === 'Catch-Ball'" wWIDTH="600" wHEIGHT="400" />
         <BouncingBall  v-else-if="gameTitle === 'Bounce-Ball'" wWIDTH="600" wHEIGHT="400" />
+        <Snake  v-else-if="gameTitle === 'Snake'" wWIDTH="600" wHEIGHT="400" />
       </section>
       <section id="controls">
-        <!-- <p>game-CONTROLS</p> -->
+        <p>game-CONTROLS</p>
       </section>
     </main>
     <footer id="footer">
@@ -57,9 +59,7 @@
 }
 
 #menu {
-  /* background-color: black; */
-    background-color: darkslategray;
-
+  background-color: black;
   grid-area: menu;
   max-width: 300px;
   max-height: 515px;
