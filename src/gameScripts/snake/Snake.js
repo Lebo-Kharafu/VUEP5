@@ -4,56 +4,82 @@ export class Snake {
     yPos;
     blockSize;
     sketch;
+    ate;
+    score;
     body = [];
 
-//https://www.w3schools.com/typescript/typescript_enums.php first time using js-enums
-    // Directions {
-    //     UP = { "x": -1, "y": 0 },
-    //     RIGHT = { "x": 0, "y": 1 },
-    //     DOWN = { "x": 0, "y": 1 },
-    //     LEFT = { "x": -1, "y": 1 }
-    // };
-
-    constructor(sketch, xPos, yPos, blockSize){
+    constructor(sketch, xPos, yPos, blockSize) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.sketch = sketch;
         this.blockSize = blockSize;
         this.body.push({ "x": xPos, "y": yPos });
-        this.body.push({ "x": xPos, "y": yPos + blockSize });
-        this.body.push({ "x": xPos, "y": yPos  + blockSize + blockSize});
+        this.ate = false;
+        this.score = 0;
     }
 
-    show(){
-        this.body.forEach(point => {
+    show() {
+        for (let indx = 0; indx < this.body.length; indx++) {
+            const point = this.body[indx];
+            if(indx !== this.body.length-1){this.sketch.fill(101, 67, 33);}else{this.sketch.fill(81, 47, 13);}
+            this.sketch.noStroke();
             this.sketch.rect(point.x, point.y, this.blockSize, this.blockSize);
-        });
+            
+        }
     }
 
-    move(direction){
+    move(direction) {
         let newPoint = this.body[this.body.length - 1];
-        if(direction == 1){
+        if (direction == 1 && (newPoint.y - this.blockSize) >= 0) {
             newPoint = { "x": newPoint.x, "y": newPoint.y - this.blockSize };
+            this.body.push(newPoint);
+            if (!this.ate) {
+                this.body.shift();
+            }else{
+                this.score++;
+            }
         }
-        else if(direction == 2){
+        else if (direction == 2 && (newPoint.x + this.blockSize) < this.sketch.width) {
             newPoint = { "x": newPoint.x + this.blockSize, "y": newPoint.y };
+            this.body.push(newPoint);
+            if (!this.ate) {
+                this.body.shift();
+            }else{
+                this.score++;
+            }
         }
-        else if(direction == 3){
-            newPoint = { "x": newPoint.x , "y": newPoint.y + this.blockSize };
+        else if (direction == 3 && (newPoint.y + this.blockSize) < this.sketch.height) {
+            newPoint = { "x": newPoint.x, "y": newPoint.y + this.blockSize };
+            this.body.push(newPoint);
+            if (!this.ate) {
+                this.body.shift();
+            }else{
+                this.score++;
+            }
         }
-        else if(direction == 4){
+        else if (direction == 4 && (newPoint.x - this.blockSize) >= 0) {
             newPoint = { "x": newPoint.x - this.blockSize, "y": newPoint.y };
+            this.body.push(newPoint);
+            if (!this.ate) {
+                this.body.shift();
+            }else{
+                this.score++;
+            }
         }
-        this.body.push(newPoint);
-        this.body.shift();
+        this.ate = false;
     }
-
-    update(){
-        this.body.forEach(point => {
-            this.sketch.rect(point.x, point.y, this.blockSize, this.blockSize);
-        });
-    }
-
     
+    update(direction) {
+        this.move(direction);
+        this.show();
+    }
+
+    getBody() {
+        return this.body;
+    }
+
+    getScore() {
+        return this.score;
+    }
 
 }
