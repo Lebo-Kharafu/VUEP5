@@ -4,18 +4,26 @@
 
 <script setup>
 import {createGame} from "../gameScripts/bouncingBall/bouncingBall.js";
-import { onMounted, ref } from 'vue';
+import { onMounted,onUnmounted , ref } from 'vue';
 import p5 from 'p5';
 
 const sketchContainer = ref(null);
-
+let p5Instance = null;
 const props = defineProps(['wWIDTH','wHEIGHT',]);
 
 onMounted(() => {
-  new p5((sketch) => {
+  p5Instance = new p5((sketch) => {
     createGame(sketch,props.wWIDTH,props.wHEIGHT);
   }, sketchContainer.value);
 });
+
+onUnmounted(() => {
+  //alert("Unmounted now deleting backgroud sketch");
+  if (p5Instance) {
+    p5Instance.remove();
+  }
+});
+
 </script>
 
 <style scoped>

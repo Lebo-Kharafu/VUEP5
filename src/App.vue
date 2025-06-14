@@ -26,7 +26,7 @@
         <Snake  v-else-if="gameTitle === 'Snake'" wWIDTH="600" wHEIGHT="400" />
       </section>
       <section id="controls">
-        <p>game-CONTROLS</p>
+        <button @click="gameTitle = 'NO Game'">STOP GAMES</button>
       </section>
     </main>
     <footer id="footer">
@@ -51,7 +51,7 @@
   /* background-color: blueviolet; */
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 2fr auto;
   grid-template-areas: 
     'menu game-viewer'
     'menu controls';
