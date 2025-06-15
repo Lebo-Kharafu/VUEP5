@@ -9,6 +9,7 @@ A collection of simple web **sketches** built with **Vue 3** and **p5.js**. This
 * Browse and interact with sketches from the gallery.
 * Built using **Vue 3** (with the `<script setup>` syntax).
 * **p5.js** handles the graphics and interactivity.
+* Game Images [Designed by Freepik](http://www.freepik.com )
 
 ---
 

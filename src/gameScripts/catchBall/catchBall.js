@@ -1,4 +1,5 @@
-// ballGame.js
+import skyImage from "./recourses/sky-background-video-conferencing/4156248.jpg";
+
 export function createGame(sketch, width, height) {
   let ballSize = 23;
   let baseLength = ballSize * 4;
@@ -13,6 +14,8 @@ export function createGame(sketch, width, height) {
   let score = 0;
   let prevScore = 0;
   let disScore = `Bounces caught: ${score}`;
+  let sky;
+  
 
   console.log(`Speed is [${speedX},${speedY}]`);
 
@@ -26,13 +29,17 @@ export function createGame(sketch, width, height) {
     score = 0;
   };
 
-  sketch.setup = () => {
+  sketch.setup = async () => {
+    sky = await sketch.loadImage(skyImage);
+    
     sketch.createCanvas(Number(width), Number(height));
     sketch.background(200);
     ballX = baseX + (baseLength / 2);
     ballY = baseY - (ballSize / 2);
     speedY = -Math.abs(speedY);
     sketch.textAlign(sketch.CENTER, sketch.TOP);
+    sketch.textSize(28);
+
   };
 
   sketch.keyPressed = (event) => {
@@ -47,9 +54,7 @@ export function createGame(sketch, width, height) {
     return false;
   };
 
-  sketch.draw = () => {
-    sketch.textSize(28);
-    
+  sketch.draw = () => { 
     if (pausedLoop) {
       sketch.noLoop();
     } else {
@@ -57,6 +62,7 @@ export function createGame(sketch, width, height) {
     }
 
     sketch.background(200);
+    sketch.image(sky, 0, 0,sketch.width, sketch.height);
     
     // Draw score
     sketch.fill(0, 0, 0);
