@@ -44,8 +44,8 @@ export class Food {
 
     eaten(snake) {
         for (var indx = 0; indx < this.food.length; indx++) {
-            for (var b = 0; b < this.blocked.length; b++) {
-                let distance = this.sketch.dist(this.food[indx].x , this.food[indx].y, this.blocked[b].x + this.blockSize/2, this.blocked[b].y + this.blockSize/2);
+           // for (var b = 0; b < this.blocked.length; b++) {
+                let distance = this.sketch.dist(this.food[indx].x , this.food[indx].y, this.blocked[this.blocked.length-1].x + this.blockSize/2, this.blocked[this.blocked.length-1].y + this.blockSize/2);
                 if (distance <= this.blockSize) {  
                     this.food.splice(indx, 1);
                     this.addFood();
@@ -53,7 +53,7 @@ export class Food {
                     snake.ate = true;
                     break;   
                 }
-            }
+            //}
         }
 
     }

@@ -31,8 +31,8 @@ export class Snake {
     move(direction) {
         let newPoint = this.body[this.body.length - 1];
         if (direction == 1 && (newPoint.y - this.blockSize) >= 0) {
-            newPoint = { "x": newPoint.x, "y": newPoint.y - this.blockSize };
-            this.body.push(newPoint);
+            let nextPoint = { "x": newPoint.x, "y": newPoint.y - this.blockSize };
+            this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
             }else{
@@ -40,8 +40,8 @@ export class Snake {
             }
         }
         else if (direction == 2 && (newPoint.x + this.blockSize) < this.sketch.width) {
-            newPoint = { "x": newPoint.x + this.blockSize, "y": newPoint.y };
-            this.body.push(newPoint);
+            let nextPoint = { "x": newPoint.x + this.blockSize, "y": newPoint.y };
+            this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
             }else{
@@ -49,8 +49,8 @@ export class Snake {
             }
         }
         else if (direction == 3 && (newPoint.y + this.blockSize) < this.sketch.height) {
-            newPoint = { "x": newPoint.x, "y": newPoint.y + this.blockSize };
-            this.body.push(newPoint);
+            let nextPoint = { "x": newPoint.x, "y": newPoint.y + this.blockSize };
+            this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
             }else{
@@ -58,8 +58,8 @@ export class Snake {
             }
         }
         else if (direction == 4 && (newPoint.x - this.blockSize) >= 0) {
-            newPoint = { "x": newPoint.x - this.blockSize, "y": newPoint.y };
-            this.body.push(newPoint);
+            let nextPoint = { "x": newPoint.x - this.blockSize, "y": newPoint.y };
+            this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
             }else{

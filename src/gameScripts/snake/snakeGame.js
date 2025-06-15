@@ -6,10 +6,11 @@ var snake;
 var foodManager;
 var foodArr;
 let dir = 2;
-let scl = 30;
+let scl = 20;
 let currScore;
 let score = 0;
 let grass;
+let paused;
 
 export function createGame(sketch, width, height) {
 
@@ -25,9 +26,13 @@ export function createGame(sketch, width, height) {
         sketch.frameRate(10);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.textSize(28);
+        paused = false;
     };
 
     sketch.draw = () => {
+        if (paused) {
+            sketch.noLoop();
+        }
         sketch.background(200);
         sketch.image(grass, 0, 0,sketch.width, sketch.height);
         foodManager.update(snake);
@@ -43,18 +48,27 @@ export function createGame(sketch, width, height) {
     sketch.keyPressed = (event) => {
 
         //movesnake
-        if (sketch.keyCode === (38)) {
+        if (sketch.keyCode === (38) && dir !== 3) {
             dir = 1;
-        } else if (sketch.keyCode === (39)) {
+        } else if (sketch.keyCode === (39) && dir !== 4) {
             dir = 2;
         }
-        else if (sketch.keyCode === (40)) {
+        else if (sketch.keyCode === (40) && dir !== 1) {
             dir = 3;
 
-        } else if (sketch.keyCode === (37)) {
+        } else if (sketch.keyCode === (37) && dir !== 2) {
             dir = 4;
         }
+        else if (sketch.keyCode === (32)) {
+            if (paused) {
+                paused = false;
+                sketch.loop();
 
-        //return false;
+            } else {
+                paused = true;
+            }
+        }
+
+        return false;
     }
 };
