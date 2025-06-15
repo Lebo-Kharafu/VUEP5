@@ -8,7 +8,7 @@ export function createGame(sketch,width,height){
     let ballSize = 23;
 
     sketch.setup = () => {
-      sketch.createCanvas(width, height);
+      sketch.createCanvas(Number(width), Number(height));
       sketch.background(200);
     };
 

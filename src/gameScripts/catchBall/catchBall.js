@@ -27,7 +27,7 @@ export function createGame(sketch, width, height) {
   };
 
   sketch.setup = () => {
-    sketch.createCanvas(width, height);
+    sketch.createCanvas(Number(width), Number(height));
     sketch.background(200);
     ballX = baseX + (baseLength / 2);
     ballY = baseY - (ballSize / 2);

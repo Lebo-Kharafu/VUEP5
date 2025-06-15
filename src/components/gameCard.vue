@@ -11,7 +11,6 @@ import defaultImage from "../assets/cd.svg";
 const props = defineProps(['title', 'description', 'cover-img']);
 const gameCover = props['cover-img'] || defaultImage;
 const altStr = `This the game cover of  ${props.title}`;
-console.log(gameCover);
 </script>
 
 <style scoped>
