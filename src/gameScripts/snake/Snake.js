@@ -7,8 +7,10 @@ export class Snake {
     ate;
     score;
     body = [];
+    snakeSkin;
+    snakeHead;
 
-    constructor(sketch, xPos, yPos, blockSize) {
+    constructor(sketch, xPos, yPos, blockSize, skin,head) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.sketch = sketch;
@@ -16,15 +18,29 @@ export class Snake {
         this.body.push({ "x": xPos, "y": yPos });
         this.ate = false;
         this.score = 0;
+        this.snakeSkin = skin;
+        this.snakeHead = head;
     }
+
 
     show() {
         for (let indx = 0; indx < this.body.length; indx++) {
             const point = this.body[indx];
-            if(indx !== this.body.length-1){this.sketch.fill(101, 67, 33);}else{this.sketch.fill(81, 47, 13);}
             this.sketch.noStroke();
+            if (indx !== this.body.length - 1) {
+                // this.sketch.fill(101, 67, 33);
+                this.sketch.image(this.snakeSkin, point.x, point.y);
+                this.sketch.noFill();
+
+            } else {
+                //this.sketch.fill(81, 47, 13);
+                this.sketch.image(this.snakeHead, point.x, point.y);
+                this.sketch.noFill();
+
+            }
             this.sketch.rect(point.x, point.y, this.blockSize, this.blockSize);
-            
+
+
         }
     }
 
@@ -35,7 +51,7 @@ export class Snake {
             this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
-            }else{
+            } else {
                 this.score++;
             }
         }
@@ -44,7 +60,7 @@ export class Snake {
             this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
-            }else{
+            } else {
                 this.score++;
             }
         }
@@ -53,7 +69,7 @@ export class Snake {
             this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
-            }else{
+            } else {
                 this.score++;
             }
         }
@@ -62,13 +78,13 @@ export class Snake {
             this.body.push(nextPoint);
             if (!this.ate) {
                 this.body.shift();
-            }else{
+            } else {
                 this.score++;
             }
         }
         this.ate = false;
     }
-    
+
     update(direction) {
         this.move(direction);
         this.show();

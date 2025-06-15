@@ -1,6 +1,8 @@
 import { Food } from "./FoodManager";
 import { Snake } from "./snake";
 import grassImage from "./recoures/bush-border/3858.jpg";
+import skinImage from "./recoures/close-up-pattern-scales.jpg";
+import headImage from "./recoures/freepik__adjust__51950.png";
 
 var snake;
 var foodManager;
@@ -10,6 +12,8 @@ let scl = 20;
 let currScore;
 let score = 0;
 let grass;
+let snakeSkin;
+let snakeHead;
 let paused;
 
 export function createGame(sketch, width, height) {
@@ -18,9 +22,13 @@ export function createGame(sketch, width, height) {
 
     sketch.setup = async () => {
         grass = await sketch.loadImage(grassImage);
+        snakeSkin =  await sketch.loadImage(skinImage);
+        snakeHead =  await sketch.loadImage(headImage);
         sketch.createCanvas(width, height);
         sketch.background(200);
-        snake = new Snake(sketch, 0, 0, scl);
+        snakeSkin.resize(scl, scl);
+        snakeHead.resize(scl, scl);
+        snake = new Snake(sketch, 0, 0, scl,snakeSkin,snakeHead);
         foodManager = new Food(sketch, snake.getBody(), scl, 3);
         foodArr = foodManager.getFood();
         sketch.frameRate(10);
