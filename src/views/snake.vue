@@ -17,9 +17,10 @@ const props = defineProps(
 
 
 onMounted(() => {
-  p5Instance = new p5((sketch) => {
-    createGame(sketch, props.wWIDTH, props.wHEIGHT);
+  p5Instance = new p5((sketch) => {  
+    createGame(sketch,Number(props.wWIDTH) ,Number( props.wHEIGHT));
   }, sketchContainer.value);
+
 });
 
 onUnmounted(() => {

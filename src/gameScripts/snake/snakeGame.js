@@ -1,5 +1,6 @@
 import { Food } from "./FoodManager";
 import { Snake } from "./snake";
+import grassImage from "./recoures/bush-border/3858.jpg";
 
 var snake;
 var foodManager;
@@ -8,24 +9,27 @@ let dir = 2;
 let scl = 30;
 let currScore;
 let score = 0;
+let grass;
 
 export function createGame(sketch, width, height) {
 
+    
 
-    sketch.setup = () => {
+    sketch.setup = async () => {
+        grass = await sketch.loadImage(grassImage);
         sketch.createCanvas(width, height);
         sketch.background(200);
         snake = new Snake(sketch, 0, 0, scl);
-        foodManager = new Food(sketch,snake.getBody(),scl,3);
+        foodManager = new Food(sketch, snake.getBody(), scl, 3);
         foodArr = foodManager.getFood();
         sketch.frameRate(10);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.textSize(28);
-
     };
 
     sketch.draw = () => {
         sketch.background(200);
+        sketch.image(grass, 0, 0,sketch.width, sketch.height);
         foodManager.update(snake);
         snake.update(dir);
         foodArr = foodManager.getFood();
@@ -33,7 +37,7 @@ export function createGame(sketch, width, height) {
         sketch.fill(0, 0, 0);
         currScore = `Snake Score: ${score}`;
         sketch.text(currScore, width / 2, 50);
-        
+
     };
 
     sketch.keyPressed = (event) => {
