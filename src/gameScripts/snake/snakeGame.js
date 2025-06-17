@@ -1,12 +1,11 @@
-import { Food } from "./FoodManager";
-import { Snake } from "./snake";
+import { Food } from "./Food.js";
+import { Snake } from "./Snake.js";
 import grassImage from "./recoures/bush-border/3858.jpg";
 import skinImage from "./recoures/close-up-pattern-scales.jpg";
 import headImage from "./recoures/freepik__adjust__51950.png";
 
 var snake;
-var foodManager;
-var foodArr;
+var food;
 let dir = 2;
 let scl = 20;
 let currScore;
@@ -18,19 +17,17 @@ let paused;
 
 export function createGame(sketch, width, height) {
 
-    
-
     sketch.setup = async () => {
         grass = await sketch.loadImage(grassImage);
         snakeSkin =  await sketch.loadImage(skinImage);
         snakeHead =  await sketch.loadImage(headImage);
         sketch.createCanvas(width, height);
-        sketch.background(200);
         snakeSkin.resize(scl, scl);
         snakeHead.resize(scl, scl);
-        snake = new Snake(sketch, 0, 0, scl,snakeSkin,snakeHead);
-        foodManager = new Food(sketch, snake.getBody(), scl, 3);
-        foodArr = foodManager.getFood();
+
+        snake = new Snake(sketch,scl,snakeSkin,snakeHead);
+        food = new Food(sketch, snake.getBody(), scl);
+
         sketch.frameRate(10);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.textSize(28);
@@ -41,12 +38,13 @@ export function createGame(sketch, width, height) {
         if (paused) {
             sketch.noLoop();
         }
-        sketch.background(200);
         sketch.image(grass, 0, 0,sketch.width, sketch.height);
-        foodManager.update(snake);
-        snake.update(dir);
-        foodArr = foodManager.getFood();
+
+        snake.update(dir, food.getFood());
+        food.update(snake);
+
         score = snake.getScore();
+        //drawScore(sketch,score);
         sketch.fill(0, 0, 0);
         currScore = `Snake Score: ${score}`;
         sketch.text(currScore, width / 2, 50);
@@ -80,3 +78,23 @@ export function createGame(sketch, width, height) {
         return false;
     }
 };
+
+
+function gameOver(sketch) {
+    let deadText = "GAME OVER \nPRESS SPACE TO TRY AGAIN";
+    sketch.textAlign(sketch.CENTER, sketch.CENTER);
+    sketch.textSize(28);
+    sketch.fill(0, 0, 0);
+
+    sketch.text(deadText, width / 2, height / 2);
+
+}
+
+function drawScore(sketch,score) {
+    sketch.textAlign(sketch.CENTER, sketch.TOP);
+    sketch.textSize(28);
+    sketch.fill(0, 0, 0);
+
+    let text = currScore = `Snake Score: ${score}`;
+    sketch.text(text, width / 2, 50);
+}

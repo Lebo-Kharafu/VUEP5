@@ -10,18 +10,38 @@ export class Snake {
     snakeSkin;
     snakeHead;
 
-    constructor(sketch, xPos, yPos, blockSize, skin,head) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    constructor(sketch, blockSize, skin, head) {
+        this.xPos = sketch.width / 2;
+        this.yPos = sketch.height / 2;
         this.sketch = sketch;
         this.blockSize = blockSize;
-        this.body.push({ "x": xPos, "y": yPos });
+        this.body.push({ "x": this.xPos, "y": this.yPos });
         this.ate = false;
         this.score = 0;
         this.snakeSkin = skin;
         this.snakeHead = head;
     }
 
+    death() {
+        let headlessBody = this.body.slice(0, this.body.length - 1);
+        let head = this.body[this.body.length - 1];
+        headlessBody.forEach(part => {
+            let distance = this.sketch.dist(head.x, head.y, part.x, part.y);
+            if (distance < this.blockSize) {
+                this.score = 0;
+                this.body = [{ x: this.sketch.width / 2, y: this.sketch.height / 2 }];
+            }
+        });
+    }
+
+    eat(apple) {
+        let head = this.body[this.body.length - 1];
+        let distance = this.sketch.dist(head.x + this.blockSize / 2, head.y + this.blockSize / 2, apple.x, apple.y);
+        if (distance <= this.blockSize) {
+            this.ate = true;
+            console.log(`I ate [${apple.x},${apple.y}]`);
+        }
+    }
 
     show() {
         for (let indx = 0; indx < this.body.length; indx++) {
@@ -39,8 +59,6 @@ export class Snake {
 
             }
             this.sketch.rect(point.x, point.y, this.blockSize, this.blockSize);
-
-
         }
     }
 
@@ -85,13 +103,19 @@ export class Snake {
         this.ate = false;
     }
 
-    update(direction) {
+    update(direction, food) {
         this.move(direction);
+        this.eat(food);
+        this.death();
         this.show();
     }
 
     getBody() {
         return this.body;
+    }
+
+    getHead() {
+        return this.body[this.body.length - 1];
     }
 
     getScore() {
