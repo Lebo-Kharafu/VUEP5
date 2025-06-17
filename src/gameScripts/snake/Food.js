@@ -23,9 +23,12 @@ export class Food {
             let x = this.sketch.random(this.blockSize / 2, this.sketch.width - this.blockSize / 2);
             let y = this.sketch.random(this.blockSize / 2, this.sketch.height - this.blockSize / 2);
             let currentFood = { "x": x, "y": y };
-            if (!this.blocked.includes(currentFood) && (x % this.blockSize && y % this.blockSize)) {
+            //https://www.geeksforgeeks.org/javascript/how-to-check-if-an-array-includes-an-object-in-javascript/
+            if (!this.blocked.some(block => block.x === currentFood.x && block.y === currentFood.y)/* && (x % this.blockSize && y % this.blockSize)*/) {
+            // if (!this.blocked.includes(currentFood)/* && (x % this.blockSize && y % this.blockSize)*/) {
                 this.food = currentFood;
                 added = true;
+                break;
             }
         }
     }

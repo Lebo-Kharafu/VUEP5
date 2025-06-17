@@ -9,6 +9,7 @@ export class Snake {
     body = [];
     snakeSkin;
     snakeHead;
+    dead = false;
 
     constructor(sketch, blockSize, skin, head) {
         this.xPos = sketch.width / 2;
@@ -30,6 +31,7 @@ export class Snake {
             if (distance < this.blockSize) {
                 this.score = 0;
                 this.body = [{ x: this.sketch.width / 2, y: this.sketch.height / 2 }];
+                this.dead = true;
             }
         });
     }
@@ -39,11 +41,14 @@ export class Snake {
         let distance = this.sketch.dist(head.x + this.blockSize / 2, head.y + this.blockSize / 2, apple.x, apple.y);
         if (distance <= this.blockSize) {
             this.ate = true;
-            console.log(`I ate [${apple.x},${apple.y}]`);
         }
     }
 
     show() {
+        if(this.dead){
+            this.gameOver(this.sketch);
+            return;
+        }
         for (let indx = 0; indx < this.body.length; indx++) {
             const point = this.body[indx];
             this.sketch.noStroke();
@@ -56,7 +61,6 @@ export class Snake {
                 //this.sketch.fill(81, 47, 13);
                 this.sketch.image(this.snakeHead, point.x, point.y);
                 this.sketch.noFill();
-
             }
             this.sketch.rect(point.x, point.y, this.blockSize, this.blockSize);
         }
@@ -120,6 +124,20 @@ export class Snake {
 
     getScore() {
         return this.score;
+    }
+
+    revive() {
+        this.dead = false;
+    }
+
+    gameOver(sketch) {
+        let deadText = "GAME OVER \nPRESS SPACE TO TRY AGAIN";
+        sketch.textAlign(sketch.CENTER, sketch.CENTER);
+        sketch.textSize(30);
+        sketch.fill(0, 0, 0);
+
+        sketch.text(deadText, sketch.width / 2, sketch.height / 2);
+        sketch.noLoop();
     }
 
 }

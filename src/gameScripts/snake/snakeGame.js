@@ -8,52 +8,51 @@ var snake;
 var food;
 let dir = 2;
 let scl = 20;
-let currScore;
 let score = 0;
 let grass;
 let snakeSkin;
 let snakeHead;
-let paused;
+let initial = true;
 
 export function createGame(sketch, width, height) {
 
     sketch.setup = async () => {
         grass = await sketch.loadImage(grassImage);
-        snakeSkin =  await sketch.loadImage(skinImage);
-        snakeHead =  await sketch.loadImage(headImage);
+        snakeSkin = await sketch.loadImage(skinImage);
+        snakeHead = await sketch.loadImage(headImage);
         sketch.createCanvas(width, height);
         snakeSkin.resize(scl, scl);
         snakeHead.resize(scl, scl);
 
-        snake = new Snake(sketch,scl,snakeSkin,snakeHead);
+        snake = new Snake(sketch, scl, snakeSkin, snakeHead);
         food = new Food(sketch, snake.getBody(), scl);
 
         sketch.frameRate(10);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.textSize(28);
-        paused = false;
+        initial = true;
+                
     };
 
     sketch.draw = () => {
-        if (paused) {
-            sketch.noLoop();
-        }
-        sketch.image(grass, 0, 0,sketch.width, sketch.height);
+        
+        sketch.image(grass, 0, 0, sketch.width, sketch.height);
 
         snake.update(dir, food.getFood());
         food.update(snake);
 
         score = snake.getScore();
-        //drawScore(sketch,score);
-        sketch.fill(0, 0, 0);
-        currScore = `Snake Score: ${score}`;
-        sketch.text(currScore, width / 2, 50);
+        drawScore(sketch, score);
 
+        if (initial) {
+            gameStart(sketch);
+            sketch.noLoop();
+        }
     };
 
     sketch.keyPressed = (event) => {
 
-        //movesnake
+        //https://www.toptal.com/developers/keycode
         if (sketch.keyCode === (38) && dir !== 3) {
             dir = 1;
         } else if (sketch.keyCode === (39) && dir !== 4) {
@@ -66,35 +65,33 @@ export function createGame(sketch, width, height) {
             dir = 4;
         }
         else if (sketch.keyCode === (32)) {
-            if (paused) {
-                paused = false;
+            if (!sketch.isLooping()) {
                 sketch.loop();
-
-            } else {
-                paused = true;
+                snake.revive();
             }
+
         }
 
         return false;
     }
-};
-
-
-function gameOver(sketch) {
-    let deadText = "GAME OVER \nPRESS SPACE TO TRY AGAIN";
-    sketch.textAlign(sketch.CENTER, sketch.CENTER);
-    sketch.textSize(28);
-    sketch.fill(0, 0, 0);
-
-    sketch.text(deadText, width / 2, height / 2);
-
 }
 
-function drawScore(sketch,score) {
+function drawScore(sketch, score) {
     sketch.textAlign(sketch.CENTER, sketch.TOP);
     sketch.textSize(28);
     sketch.fill(0, 0, 0);
 
-    let text = currScore = `Snake Score: ${score}`;
-    sketch.text(text, width / 2, 50);
+    let textStr = `Snake Score: ${score}`;
+    sketch.text(textStr, sketch.width / 2, 50);
+}
+
+
+function gameStart(sketch) {
+    let startText = "PRESS SPACE TO TRY AGAIN";
+    sketch.textAlign(sketch.CENTER, sketch.CENTER);
+    sketch.textSize(30);
+    sketch.fill(0, 0, 0);
+
+    sketch.text(startText, sketch.width / 2, sketch.height / 2);
+    initial = false;
 }
