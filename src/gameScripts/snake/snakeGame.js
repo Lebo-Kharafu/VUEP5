@@ -87,7 +87,7 @@ function drawScore(sketch, score) {
 
 
 function gameStart(sketch) {
-    let startText = "PRESS SPACE TO TRY AGAIN";
+    let startText = "PRESS SPACE TO TRY";
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textSize(30);
     sketch.fill(0, 0, 0);
