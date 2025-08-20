@@ -20,14 +20,17 @@
  #global-container {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
 }
 
 #header {
   background-color: aquamarine;
+  max-height: 60px;
 }
 
 
-/* #footer {
-} */
+#footer {
+  max-height: 40px;
+}
 </style>
