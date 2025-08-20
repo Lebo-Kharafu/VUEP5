@@ -1,12 +1,31 @@
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted, onBeforeUnmount  } from 'vue';
 import gameCard from '../components/gameCard.vue';
 import BouncingBall from "./BouncingBall.vue";
 import CatchTheBall from "./CatchTheBall.vue";
 import Snake from "./snake.vue";
+
 let gameTitle = ref('Snake');
-let wsize = 600;
-let hsize = 400;
+
+let wsize =  ref(Math.min(window.innerWidth - 250,1000));
+let hsize = 430;
+// let hsize = Math.min(window.innerHeight - 220,600);
+
+
+/* delete if cant fix 
+const updateSize = () => {
+  wsize.value = Math.min(window.innerWidth - 250, 1000);
+//   hsize.value = 430;
+};
+
+onMounted(() => {
+  window.addEventListener('resize', updateSize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateSize);
+});*/
+
 </script>
 
 <template>
@@ -19,10 +38,10 @@ let hsize = 400;
                 @click="gameTitle = 'Catch-Ball'" />
         </aside>
         <section id="frame">
-            <h3>Now Playing {{ gameTitle }}</h3>
-            <CatchTheBall v-if="gameTitle === 'Catch-Ball'" wWIDTH="600" wHEIGHT="400" />
-            <BouncingBall v-else-if="gameTitle === 'Bounce-Ball'" wWIDTH="600" wHEIGHT="400" />
-            <Snake v-else-if="gameTitle === 'Snake'" wWIDTH="600" wHEIGHT="400" />
+            <h3>Loaded: {{ gameTitle }}</h3>
+            <CatchTheBall v-if="gameTitle === 'Catch-Ball'" :wWIDTH="wsize" :wHEIGHT="hsize" />
+            <BouncingBall v-else-if="gameTitle === 'Bounce-Ball'" :wWIDTH="wsize" :wHEIGHT="hsize" />
+            <Snake v-else-if="gameTitle === 'Snake'" :wWIDTH="wsize" :wHEIGHT="hsize" />
         </section>
         <section id="controls">
             <button @click="gameTitle = 'NO Game'">STOP GAMES</button>
@@ -41,7 +60,7 @@ let hsize = 400;
 
 #side-bar {
     grid-area: side-bar;
-    max-width: 20rem;
+    max-width: 350px;
     min-width: 180px;
     height: fit-content;
     max-height: calc(100vh - 100px);
