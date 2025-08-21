@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && git add . && git commit -m 'Deploy to gh-pages' && git subtree push --prefix dist origin gh-pages"
+    "deploy": "npm run build && git add . && git commit -m 'Deploy to gh-pages' && git subtree push --prefix dist origin gh-pages",
+    "deploy:u": "npm run build && git add . && git commit -m 'Deploy to gh-pages at $(date +\"%Y-%m-%d %H:%M\")' && git subtree push --prefix dist origin gh-pages",
+    "deploy:w": "npm run build && git add . && git commit -m \"Deploy to gh-pages at %DATE:~10,4%-%DATE:~4,2%-%DATE:~7,2% %TIME:~0,2%:%TIME:~3,2%\" && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "p5": "^2.0.3",
